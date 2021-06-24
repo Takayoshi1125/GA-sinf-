@@ -55,6 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		Position2 p0(x, y);
 		//過去1過去2
 		Vector2 lastDelta90Vectors[2] = { { 0.0f,0.0f },{0.0f,0.0f} };
+		
 
 
 		//auto px = 0 * block_size;
@@ -98,7 +99,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			y = nextY;*/
 
 			auto p1 = p0;
-			auto deltaVec = Vector2(block_size, 50.0f *
+			auto deltaVec = Vector2(block_size, 40.0f *
 				sinf(0.5f * (float)(frameForAngle+block_size*i)*DX_PI_F / 180.0f)
 			);
 			deltaVec = deltaVec.Normalized() * block_size;
@@ -117,7 +118,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 			
 
-			auto middleVecL = lastDelta90Vectors[0];
+			auto middleVecL = delta90Vec;//lastDelta90Vectors[0];
 			if (!(lastDelta90Vectors[1] == Vector2(0.0f, 0.0f)))
 			{
 				middleVecL = (lastDelta90Vectors[0] + lastDelta90Vectors[1]).Normalized() * block_size;
@@ -132,35 +133,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				p1.x, p1.y,
 				0xffffff, 5.0f);
 
-			auto rightPos = p1 + middleVecR;
+			DrawCircle(p0.x, p0.y, 3.0f, 0xff0000, true);
 
 			auto leftPos = p0 + middleVecL;
+			auto rightPos = p1 + middleVecR;
+			
+
+			//auto leftPos = p0 + deltaVec.Rotated90();
+			///*auto middlePos = leftPos;
+			//if (!(lastDeltaVec90 == Vector2(0.0f, 0.0f)))
+			//{
+			//	auto halfPos = deltaVec.Rotated90()+lastDeltaVec90;
+
+			//	middlePos = halfPos;
+			//}*/
+
+			//auto rightPos = p1 + deltaVec.Rotated90();
+
 
 			//auto middlePos = p0 + middleVecR;
 			//DrawLineAA(//左辺
 			//	p0.x, p0.y,//始点
 			//	middlePos.x, middlePos.y,//終点
-			//	0xff8888, 4.0f);
+			//	0xffaaaa, 4.0f);
 
-			DrawRectModiGraph(
-				p0.x, p0.y ,//始点
+			//DrawRectModiGraph(
+			//	p0.x, p0.y ,//始点
+			//	p1.x, p1.y,//終点
+			//	rightPos.x, rightPos.y,
+			//	leftPos.x, leftPos.y,
+			//	48,0,
+			//	16,16,
+			//	asset,
+			//	true);
+
+
+			//DrawLineAA(//左辺
+			//	p0.x, p0.y,//始点
+			//	leftPos.x, leftPos.y,//終点
+			//	0xff8888, 3.0f);
+			//DrawLineAA(//右辺
+			//	p1.x, p1.y,//始点
+			//	rightPos.x, rightPos.y,//終点
+			//	0x8888ff, 3.0f);
+
+			DrawModiGraph(
+				p0.x, p0.y,
 				p1.x, p1.y,//終点
 				rightPos.x, rightPos.y,
 				leftPos.x, leftPos.y,
-				48,0,
-				16,16,
-				asset,
-				true);
+				groundH, true
+			);
 
-			DrawLineAA(//右辺
-				p1.x, p1.y,//始点
-				rightPos.x, rightPos.y,//終点
-				0x8888ff, 3.0f);
 
-			DrawLineAA(//左辺
-				p0.x, p0.y,//始点
-				leftPos.x, leftPos.y,//終点
-				0xff8888, 3.0f);
 
 			p0 = p1;
 		}

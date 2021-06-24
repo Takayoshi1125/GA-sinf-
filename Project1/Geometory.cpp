@@ -68,7 +68,7 @@ void Vector2::Rotate90()
 
 Vector2 Vector2::Rotated90()const
 {
-	return { y,- x};
+	return { -y, x};
 }
 
 Vector2 operator+(const Vector2& lval, const Vector2& rval)
