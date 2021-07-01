@@ -117,7 +117,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			auto middleVecL = delta90Vec;
 			if (!(lastDelta90Vectors[0] == Vector2(0.0f, 0.0f)))
 			{
-				middleVecR = (middleVecR + lastDelta90Vectors[0]).Normalized() * block_size;
+				middleVecR = (delta90Vec + lastDelta90Vectors[0]).Normalized() * block_size;
 				middleVecL = lastDelta90Vectors[0];
 			}
 			
@@ -184,6 +184,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				/*leftPos = p0 + middleVecL;
 				rightPos = p1 + delta90Vec;*/
 
+
+
 				DrawModiGraph(
 					lastPos.x, lastPos.y,
 					p0.x, p0.y,//終点
@@ -191,6 +193,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					leftPos.x, leftPos.y,
 					groundH, true
 				);
+
+				leftPos = p0 + middleVecR;
+				auto rightPos2 = p1 + delta90Vec;
+
+				DrawModiGraph(
+					p0.x, p0.y,//終点
+					p1.x, p1.y,
+					rightPos2.x, rightPos2.y,
+					leftPos.x, leftPos.y,
+					groundH, true
+				);
+
+				/*DrawLineAA(
+					lastPos.x, lastPos.y,
+					leftPos.x, leftPos.y,
+					0xffffff, 3.0f
+				);*/
 
 				//DrawModiGraph(
 				//	p0.x, p0.y,//終点
@@ -204,20 +223,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 			else
 			{
-				leftPos = p0 + middleVecL;
-				auto rightPos2 = p1 + delta90Vec;
+				/*leftPos = p0 + middleVecR;
+				auto rightPos2 = p1 + delta90Vec;*/
 
 				DrawModiGraph(
-					p0.x, p0.y,//終点
-					p1.x, p1.y,
-					rightPos2.x, rightPos2.y,
+					lastPos.x, lastPos.y,//終点
+					p0.x, p0.y,
+					rightPos.x, rightPos.y,
 					leftPos.x, leftPos.y,
 					groundH, true
 				);
 			}
 			
 
-			DrawLineAA(
+			/*DrawLineAA(
 				p0.x, p0.y,
 				leftPos.x, leftPos.y,
 				0xffffff, 3.0f
@@ -227,7 +246,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				p1.x, p1.y,
 				rightPos.x, rightPos.y,
 				0xffffff, 3.0f
-			);
+			);*/
 
 			lastPos = p0;
 
