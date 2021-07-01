@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	int asset= LoadGraph(L"Image/Assets.png");
 
-	int arrowH=LoadGraph(L"Image/arrow.png");
+	int arrowH=LoadGraph(L"Image/arrow2.png");
 
 	if (DxLib_Init() == -1)
 	{
@@ -49,7 +49,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		ClearDrawScreen();
 
 		constexpr size_t block_size = 32;
-		const auto count = 720 / block_size;
+		const int width = 400;
+		const auto count = width / block_size;
+
+		int imageWidth, imageHight;
+		GetGraphSize(arrowH, &imageWidth, &imageHight);
+		float weight=(float)
+
+
+
 		float theta = (float)(frameForAngle)*DX_PI_F / 180.0f;
 		int x = 0;
 		int y = 240;//+100*sinf(theta);
@@ -186,23 +194,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 
-				DrawModiGraph(
+				DrawRectModiGraph(
 					lastPos.x, lastPos.y,
 					p0.x, p0.y,//終点
 					rightPos.x, rightPos.y,
 					leftPos.x, leftPos.y,
-					groundH, true
+					(i-1)*block_size*weight,0,//画像切り抜き左上
+					block_size*2,64,//画像切り抜き右下
+					arrowH, true
 				);
 
 				leftPos = p0 + middleVecR;
 				auto rightPos2 = p1 + delta90Vec;
 
-				DrawModiGraph(
+				DrawRectModiGraph(
 					p0.x, p0.y,//終点
 					p1.x, p1.y,
 					rightPos2.x, rightPos2.y,
 					leftPos.x, leftPos.y,
-					groundH, true
+					i * block_size*2, 0,//画像切り抜き左上
+					block_size*2, 64,//画像切り抜き右下
+					arrowH, true
 				);
 
 				/*DrawLineAA(
@@ -226,12 +238,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				/*leftPos = p0 + middleVecR;
 				auto rightPos2 = p1 + delta90Vec;*/
 
-				DrawModiGraph(
+				DrawRectModiGraph(
 					lastPos.x, lastPos.y,//終点
 					p0.x, p0.y,
 					rightPos.x, rightPos.y,
 					leftPos.x, leftPos.y,
-					groundH, true
+					(i - 1) * block_size*2, 0,//画像切り抜き左上
+					block_size*2, 64,//画像切り抜き幅、高さ
+					arrowH, true
 				);
 			}
 			
