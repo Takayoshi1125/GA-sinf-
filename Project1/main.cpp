@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		int imageWidth, imageHight;
 		GetGraphSize(arrowH, &imageWidth, &imageHight);
-		float weight=(float)
+		float weight = (float)imageWidth/(float)width;
 
 
 
@@ -200,7 +200,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					rightPos.x, rightPos.y,
 					leftPos.x, leftPos.y,
 					(i-1)*block_size*weight,0,//画像切り抜き左上
-					block_size*2,64,//画像切り抜き右下
+					block_size*weight,64,//画像切り抜き右下
 					arrowH, true
 				);
 
@@ -212,8 +212,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					p1.x, p1.y,
 					rightPos2.x, rightPos2.y,
 					leftPos.x, leftPos.y,
-					i * block_size*2, 0,//画像切り抜き左上
-					block_size*2, 64,//画像切り抜き右下
+					i * block_size* weight, 0,//画像切り抜き左上
+					block_size* weight, 64,//画像切り抜き右下
 					arrowH, true
 				);
 
@@ -243,8 +243,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					p0.x, p0.y,
 					rightPos.x, rightPos.y,
 					leftPos.x, leftPos.y,
-					(i - 1) * block_size*2, 0,//画像切り抜き左上
-					block_size*2, 64,//画像切り抜き幅、高さ
+					(i - 1) * block_size* weight, 0,//画像切り抜き左上
+					block_size* weight, 64,//画像切り抜き幅、高さ
 					arrowH, true
 				);
 			}
